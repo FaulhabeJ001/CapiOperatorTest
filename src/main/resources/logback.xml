@@ -71,7 +71,7 @@
       <appender-ref ref="STDERR" />
       <appender-ref ref="STDOUT"/>
   </logger>
-  <logger name="org.cloudfoundry" level="debug" additivity="false">
+  <logger name="org.cloudfoundry" level="info" additivity="false">
     <appender-ref ref="RollingFile" />
     <appender-ref ref="STDERR" />
     <appender-ref ref="STDOUT"/>

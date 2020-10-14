@@ -1,7 +1,7 @@
 operator:
   develop: # only for develop purposes, in production use wiretap=false, proxy.active=false and skipssl=true
     httpclient:
-      wiretap: true
+      wiretap: false
       proxy:
         active: false
         host: localhost
