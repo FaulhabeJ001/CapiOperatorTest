@@ -1,0 +1,7 @@
+cf:
+  apiHost: ${CF_APIHOST}
+  username: ${CF_USERNAME}
+  password: ${CF_PASSWORD}
+  organization: ${CF_ORGANIZATION}
+  space: ${SPACE}
+
