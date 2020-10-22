@@ -17,13 +17,13 @@ class AppServiceTest {
     AppService appService;
 
     @Test
-    void createApp_Mini() throws IOException {
+    void createApp_Mini() throws IOException, InterruptedException {
         appService.createStaticApp("static_small",
                 new ClassPathResource("static_small.zip").getFile().getAbsolutePath());
     }
 
     @Test
-    void createApp_Bigger() throws IOException {
+    void createApp_Bigger() throws IOException, InterruptedException {
         appService.createStaticApp("static_big",
                 new ClassPathResource("static_big.zip").getFile().getAbsolutePath());
     }

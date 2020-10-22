@@ -11,6 +11,7 @@ import reactor.core.publisher.Mono;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.concurrent.CountDownLatch;
 
 @Component
 public class AppService {
@@ -23,7 +24,7 @@ public class AppService {
         this.cfOperations = cfOperations;
     }
 
-    public void createStaticApp(String name, String absoluteFilePath) {
+    public void createStaticApp(String name, String absoluteFilePath) throws InterruptedException {
         ApplicationManifest manifest = ApplicationManifest.builder()
                 .name(name)
                 .buildpack("staticfile_buildpack")
@@ -43,9 +44,16 @@ public class AppService {
                 .build();
 
         Mono<Void> createRequest = cfOperations.applications().pushManifest(request)
-                .doOnSubscribe(subscription -> log.info("pushing manifest for application: "))
-                .doOnSuccess(aVoid -> log.info("pushed manifest for application: "));
-        createRequest.block();
+                .doOnSubscribe(subscription -> log.info("pushing manifest for application"))
+                .doOnSuccess(aVoid -> log.info("pushed manifest for application"));
+
+        CountDownLatch latch = new CountDownLatch(1);
+        createRequest.subscribe(System.out::println, t -> {
+            t.printStackTrace();
+            latch.countDown();
+        }, latch::countDown);
+
+        latch.await();
     }
 
     public void deleteApp(String appName) {
