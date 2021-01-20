@@ -47,13 +47,20 @@ public class AppService {
                 .doOnSubscribe(subscription -> log.info("pushing manifest for application"))
                 .doOnSuccess(aVoid -> log.info("pushed manifest for application"));
 
-        CountDownLatch latch = new CountDownLatch(1);
-        createRequest.subscribe(System.out::println, t -> {
-            t.printStackTrace();
-            latch.countDown();
-        }, latch::countDown);
+//        CountDownLatch latch = new CountDownLatch(2);
+//        createRequest.subscribe(System.out::println, t -> {
+//            t.printStackTrace();
+//            latch.countDown();
+//        }, latch::countDown);
+//
+//        latch.await();
 
-        latch.await();
+        try {
+            createRequest.block();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     public void deleteApp(String appName) {

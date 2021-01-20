@@ -58,7 +58,7 @@ public class CloudFoundryOperationsConfiguration {
     DefaultConnectionContext connectionContext(@Value("${cf.apiHost}") String apiHost) {
         return DefaultConnectionContext.builder()
                 .apiHost(apiHost)
-                .additionalHttpClientConfiguration(httpClient -> httpClient.wiretap(debugProperties.isWiretap()))
+                //.additionalHttpClientConfiguration(httpClient -> httpClient.wiretap(debugProperties.isWiretap()))
                 .proxyConfiguration(debugProperties.getProxy().isActive() ? getProxy() : Optional.empty())
                 .skipSslValidation(debugProperties.isSkipssl())
                 .build();
