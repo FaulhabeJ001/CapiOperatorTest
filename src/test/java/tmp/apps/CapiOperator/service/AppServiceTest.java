@@ -16,42 +16,26 @@ class AppServiceTest {
     AppService appService;
 
     @Test
-    void createApp_MiniJar()  {
-        try {
-            appService.createStaticApp("jar_small",
-                    new ClassPathResource("sample1.jar").getFile().getAbsolutePath());
-        } catch (Throwable e) {
-            fail();
-        }
-    }
-
-    @Test
     void createApp_Mini()  {
-        try {
             appService.createStaticApp("static_small",
                     new ClassPathResource("static_small.zip").getFile().getAbsolutePath());
-        } catch (Throwable e) {
-            fail();
-        }
+       
     }
 
     @Test
     void createApp_Bigger() {
-        try {
+        // This will throw: org.cloudfoundry.client.v2.ClientV2Exception: CF-AppBitsUploadInvalid(160001): The app upload is invalid: Invalid zip archive.
             appService.createStaticApp("static_big",
                     new ClassPathResource("static_big.zip").getFile().getAbsolutePath());
-        } catch (Throwable e) {
-            fail();
-        }
     }
 
-    @Test
-    void deleteApp() {
-        try {
-            appService.deleteApp("static_small");
-        } catch (Throwable e) {
-            fail();
-        }
-    }
+//    @Test
+//    void deleteApp() {
+//        try {
+//            appService.deleteApp("static_small");
+ //       } catch (Throwable e) {
+ //           fail();
+ //       }
+ //   }
 }
 
